@@ -1,13 +1,12 @@
+// Em produtoController.js
+const produtoService = require('../services/produtoService');
+
 exports.getProdutos = async (req, res) => {
     try {
-        // Simulação de produtos
-        const produtos = [
-            { id: 1, nome: 'Vinho Tinto', preco: 50.0, quantidade: 10, categoria: 'Bebidas' },
-            { id: 2, nome: 'Espumante', preco: 75.0, quantidade: 5, categoria: 'Bebidas' },
-        ];
+        const produtos = await produtoService.getAllProdutos();
         res.status(200).json(produtos);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar produtos' });
+        res.status(500).json({ error: error.message });
     }
 };
 

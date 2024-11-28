@@ -1,13 +1,12 @@
+// Em usuarioController.js
+const usuarioService = require('../services/usuarioService');
+
 exports.getUsuarios = async (req, res) => {
     try {
-        // Simulação de usuários
-        const usuarios = [
-            { id: 1, nome: 'João Silva', email: 'joao@email.com', role: 'USER' },
-            { id: 2, nome: 'Maria Oliveira', email: 'maria@email.com', role: 'ADMIN' },
-        ];
+        const usuarios = await usuarioService.getAllUsuarios();
         res.status(200).json(usuarios);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar usuários' });
+        res.status(500).json({ error: error.message });
     }
 };
 
