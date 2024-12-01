@@ -40,14 +40,17 @@ app.get('/csrf-token', (req, res) => {
 // Middleware de erro (deve ser o último middleware)
 app.use((err, req, res, next) => {
     if (err.code === 'EBADCSRFTOKEN') {
+        logger.error(`CSRF token error: ${err.message}`); // Logando erro CSRF
         res.status(403).json({ error: 'Token CSRF inválido ou ausente.' });
     } else {
+        logger.error(`Unexpected error: ${err.message}`); // Logando outros erros inesperados
         next(err);
     }
 });
+
 app.use(errorHandler);
 
 // Iniciar o servidor
 app.listen(PORT, () => {
-    logger.info(`Servidor rodando na porta ${PORT}`);
+    logger.info(`Servidor rodando na porta ${PORT}`); // Logando a informação de que o servidor iniciou
 });
